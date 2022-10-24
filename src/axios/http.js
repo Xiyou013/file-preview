@@ -22,10 +22,18 @@ import "nprogress/nprogress.css"
 //     loading?.close()
 // }
 
+const service = axios.create({
+    baseURL: '/api', 		// /'/api'等于'http://baidu.com'
+    withCredentials: true,
+    timeout: 100000 		// 请求超时时间
+})
+// axios.defaults.baseURL = 'api'
+
 // 请求拦截  设置统一header
-axios.interceptors.request.use(config => {
+service.interceptors.request.use(config => {
     // 加载
     // startLoading()
+    console.log(11111);
     nprogress.start()
     if (localStorage.eleToken)
         config.headers.Authorization = localStorage.eleToken
@@ -35,9 +43,10 @@ axios.interceptors.request.use(config => {
 })
 
 // 响应拦截  401 token过期处理
-axios.interceptors.response.use(response => {
+service.interceptors.response.use(response => {
     // endLoading()
     nprogress.done()
+    console.log(22222);
     // return response.data
     return response
 }, error => {
@@ -45,6 +54,7 @@ axios.interceptors.response.use(response => {
     // endLoading()
     // ElMessage.error(error.response.data)
     nprogress.done()
+    console.log(33333);
 
     const { status } = error.response
     if (status == 401) {
@@ -59,4 +69,4 @@ axios.interceptors.response.use(response => {
     return Promise.reject(error)
 })
 
-export default axios
+export default service

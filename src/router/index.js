@@ -4,11 +4,15 @@ import Home from '@/views/home/indexPage.vue'
 const routerArr = [
     {
         path: '/',
-        redirect: 'home'
+        redirect: 'test'
     },
     {
         path: '/home',
         component: Home
+    },
+    {
+        path: '/test',
+        component: () => import('@/views/test/indexPage.vue'),
     }
 ]
 

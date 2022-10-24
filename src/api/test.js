@@ -6,7 +6,7 @@ import axios from '@/axios/http';
 export function getData() {
     // return axios.get('/test')
     return axios({
-        url: '/test',
+        url: '/api/test',
         method: 'get'
     })
 }
